@@ -1,19 +1,16 @@
 ---
 - name: Create virtual environments
   ansible.builtin.shell: >
-    mkvirtualenv {{ item.env_name }}
+    "mkvirtualenv -a '{{ item.project_home }}' {{ item.env_name }}"
   environment:
     WORKON_HOME: "{{ item.workon_home }}"
     VIRTUALENVWRAPPER_PYTHON: "{{ item.virtualenvwrapper_python | default(default_python_path) }}"
     VIRTUALENVWRAPPER_SCRIPT: "{{ item.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
-    PROJECT_HOME: "{{ item.project_home | default(default_project_home) }}" # $HOME/Devel
+    PROJECT_HOME: "{{ item.project_home | default(default_project_home) }}"
   args:
     chdir: "{{ ansible_env.HOME }}"
-  when: virtualenv_action == 'create' and item.env_name is defined
+  when: virtualenv_action == 'create' and item.env_name is defined and item.project_home is defined
   ignore_errors: true
   become: true
   become_user: "{{ virtualenvwrapper_user }}"
   loop: "{{ virtualenv_settings }}"
-
-
-
