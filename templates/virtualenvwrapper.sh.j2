@@ -1,4 +1,5 @@
 #!/bin/bash
-export WORKON_HOME={{ workon_home }}
-export VIRTUALENVWRAPPER_PYTHON={{ python_path }}
-source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME={{ default_workon_home }}
+export VIRTUALENVWRAPPER_PYTHON={{ default_python_path }}
+export DEFAULT_PROJECT_HOME={{ default_project_home }}
+source {{ default_virtualenvwrapper_path }}
