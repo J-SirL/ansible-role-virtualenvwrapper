@@ -1,0 +1,48 @@
+---
+# main.yml or group_vars/your_group_name.yml if you like to put it in group_vars
+virtualenvwrapper_user: jsorell
+
+# Define default virtualenv settings
+# Add more projects with their respective details as needed these are only examples
+virtualenv_settings:
+  - Project1:
+      env_name: our_special_env
+      description: "Project 1 Description"
+      github_url: "https://github.com/project1"
+      workon_home: "{{ default_workon_home }}"
+      virtualenvwrapper_python: "{{ default_python_path }}"
+      virtualenvwrapper_script: "{{ default_virtualenvwrapper_path }}"
+  - Project2:
+      env_name: another_env
+      description: "Project 2 Description"
+      github_url: "https://github.com/project2"
+      workon_home: "{{ default_workon_home }}"
+      virtualenvwrapper_python: "{{ default_python_path }}"
+      virtualenvwrapper_script: "{{ default_virtualenvwrapper_path }}"
+  # Add more projects with their respective details
+
+  # Add more default settings for other environments if needed
+
+
+# Define default values for environment variables
+default_workon_home: "$HOME/.virtualenvs"
+default_python_path: "/usr/bin/python3"
+default_virtualenvwrapper_path: "/usr/local/bin/virtualenvwrapper.sh"
+
+
+# Define the tasks for our role
+virtualenv_tasks:
+  - task_file: create_env.yml
+    condition: virtualenv_action == 'create' and env_name is defined
+  - task_file: remove_env.yml
+    condition: virtualenv_action == 'remove' and env_name is defined
+  - task_file: list_envs.yml
+    condition: virtualenv_action == 'list'
+  - task_file: add2virtualenv.yml
+    condition: virtualenv_action == 'add' and env_name is defined
+  - task_file: allvirtualenv.yml
+    condition: virtualenv_action == 'list'
+  
+
+
+  # ... other tasks with their conditions

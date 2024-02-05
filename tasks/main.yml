@@ -1,0 +1,18 @@
+---
+- name: Install virtualenvwrapper
+  ansible.builtin.pip:
+    name: virtualenvwrapper
+    state: present
+
+- name: Setup virtualenvwrapper script
+  ansible.builtin.template:
+    src: virtualenvwrapper.sh.j2
+    dest: "{{ virtualenvwrapper_script_path }}"
+    mode: 0755
+
+
+- name: Manage virtual environments
+  include_tasks: "{{ item.task_file }}"
+  loop: "{{ virtualenv_tasks }}"
+  when: item.condition
+
