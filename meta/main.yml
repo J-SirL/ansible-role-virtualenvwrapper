@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Johan Sörell
+  description: Ansible role for managing Virtualenvwrapper.
+  license:  GPL-3.0
+  min_ansible_version: "2.9"  # Adjust as per your role's requirements
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+  galaxy_tags:
+    - python
+    - virtualenv
+    - virtualenvwrapper
+    - ansible
+    - automation
+
+dependencies: []
