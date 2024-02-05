@@ -6,6 +6,7 @@
     WORKON_HOME: "{{ item.workon_home }}"
     VIRTUALENVWRAPPER_PYTHON: "{{ item.virtualenvwrapper_python | default(default_python_path) }}"
     VIRTUALENVWRAPPER_SCRIPT: "{{ item.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
+    PROJECT_HOME: "{{ item.project_home | default(default_project_home) }}" # $HOME/Devel
   args:
     chdir: "{{ ansible_env.HOME }}"
   when: virtualenv_action == 'create' and item.env_name is defined

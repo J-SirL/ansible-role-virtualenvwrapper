@@ -5,26 +5,28 @@ virtualenvwrapper_user: jsorell
 # Define default virtualenv settings
 # Add more projects with their respective details as needed these are only examples
 virtualenv_settings:
-  - Project1:
-      env_name: our_special_env
+  - ChatGPT_Archivist:
+      project_home: /opt/Programming/mygitrepos/chatgbt-webchat-history-webpage
+      env_name: ChatGPT_Archivist_venv
       description: "Project 1 Description"
       github_url: "https://github.com/project1"
       workon_home: "{{ default_workon_home }}"
       virtualenvwrapper_python: "{{ default_python_path }}"
       virtualenvwrapper_script: "{{ default_virtualenvwrapper_path }}"
-  - Project2:
-      env_name: another_env
-      description: "Project 2 Description"
-      github_url: "https://github.com/project2"
-      workon_home: "{{ default_workon_home }}"
-      virtualenvwrapper_python: "{{ default_python_path }}"
-      virtualenvwrapper_script: "{{ default_virtualenvwrapper_path }}"
+#  - Project2 Example:
+#      env_name: another_env
+#      description: "Project 2 Description"
+#      github_url: "https://github.com/project2"
+#      workon_home: "{{ default_workon_home }}"
+#      virtualenvwrapper_python: "{{ default_python_path }}"
+#      virtualenvwrapper_script: "{{ default_virtualenvwrapper_path }}"
   # Add more projects with their respective details
 
   # Add more default settings for other environments if needed
 
 
 # Define default values for environment variables
+default_project_home: "$HOME/Devel"
 default_workon_home: "$HOME/.virtualenvs"
 default_python_path: "/usr/bin/python3"
 default_virtualenvwrapper_path: "/usr/local/bin/virtualenvwrapper.sh"
