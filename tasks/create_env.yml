@@ -20,6 +20,7 @@
   loop: "{{ virtualenv_settings }}"
   loop_control:
     loop_var: project_details
+    extended: yes
   vars:
     project_name: "{{ project_details.keys() | first }}"
 
@@ -30,6 +31,7 @@
   loop: "{{ virtualenv_settings }}"
   loop_control:
     loop_var: project_details
+    extended: yes
   vars:
     project_name: "{{ project_details.keys() | first }}"
 
