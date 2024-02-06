@@ -15,24 +15,25 @@
 # Debug env_name from the nested dictionary
 - name: Debug env_name
   ansible.builtin.debug:
-    msg: "env_name for {{ project_name }} is {{ project_details.env_name }}"
+    msg: "env_name for {{ project_key }} is {{ project_value.env_name }}"
   loop: "{{ virtualenv_settings }}"
   loop_control:
-    loop_var: project_details
+    loop_var: project_item
   vars:
-    project_name: "{{ project_details.keys() | first }}"
-    project_details: "{{ project_details.values() | first }}"
+    project_key: "{{ project_item.keys() | first }}"
+    project_value: "{{ project_item[project_key] }}"
 
 # Debug project_home from the nested dictionary
 - name: Debug project_home
   ansible.builtin.debug:
-    msg: "project_home for {{ project_name }} is {{ project_details.project_home }}"
+    msg: "project_home for {{ project_key }} is {{ project_value.project_home }}"
   loop: "{{ virtualenv_settings }}"
   loop_control:
-    loop_var: project_details
+    loop_var: project_item
   vars:
-    project_name: "{{ project_details.keys() | first }}"
-    project_details: "{{ project_details.values() | first }}"
+    project_key: "{{ project_item.keys() | first }}"
+    project_value: "{{ project_item[project_key] }}"
+
 
 
 - fail:
