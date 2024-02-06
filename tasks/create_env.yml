@@ -83,6 +83,8 @@
 - name: Print ansible_env.HOME
   debug:
     var: ansible_env.HOME
+  become: true
+  become_user: "{{ virtualenvwrapper_user }}"
 
 
 - fail:
