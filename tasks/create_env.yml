@@ -110,5 +110,5 @@
     loop_var: project_item
   vars:
     project_key: "{{ project_item.keys() | first }}"
-    project_value: "{{ project_item[project_key] }}"
+    project_details: "{{ project_item[project_key] }}"
 
