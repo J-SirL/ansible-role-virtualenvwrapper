@@ -7,9 +7,10 @@
 - name: Setup virtualenvwrapper script
   ansible.builtin.template:
     src: virtualenvwrapper.sh.j2
-    dest: "{{ virtualenvwrapper_script_path }}"
-    mode: 0755
-
+    dest: "{{ item.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
+    mode: '0755'
+  loop: "{{ virtualenv_settings }}"
+  when: item.virtualenvwrapper_script is defined or default_virtualenvwrapper_path is defined
 
 - name: Manage virtual environments
   include_tasks: "{{ item.task_file }}"
