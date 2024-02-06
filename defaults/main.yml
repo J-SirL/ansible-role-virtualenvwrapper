@@ -35,13 +35,13 @@ default_virtualenvwrapper_path: "/usr/local/bin/virtualenvwrapper.sh"
 # Define the tasks for our role
 virtualenv_tasks:
   - task_file: create_env.yml
-    condition: virtualenv_action == 'create' and env_name is defined
+    condition: virtualenv_action == 'create'
   - task_file: remove_env.yml
-    condition: virtualenv_action == 'remove' and env_name is defined
+    condition: virtualenv_action == 'remove'
   - task_file: list_envs.yml
     condition: virtualenv_action == 'list'
   - task_file: add2virtualenv.yml
-    condition: virtualenv_action == 'add' and env_name is defined
+    condition: virtualenv_action == 'add'
   - task_file: allvirtualenv.yml
     condition: virtualenv_action == 'list'
   
