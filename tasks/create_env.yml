@@ -1,6 +1,6 @@
 ---
 
-# Debug the file
+# Debug the entire env_item
 - name: Debug each env_item
   ansible.builtin.debug:
     var: env_item
@@ -8,39 +8,50 @@
   loop_control:
     loop_var: env_item
 
+# Debug virtualenv_action
 - name: Debug virtualenv_action
   ansible.builtin.debug:
     var: virtualenv_action
 
+# Debug env_name from the nested dictionary
 - name: Debug env_name
   ansible.builtin.debug:
-    var: env_item.env_name
-  loop: "{{ virtualenv_settings }}"
+    msg: "env_name for {{ item.key }} is {{ item.value.env_name }}"
+  loop: "{{ virtualenv_settings | dict2items }}"
   loop_control:
-    loop_var: env_item
+    loop_var: item
 
+# Debug project_home from the nested dictionary
 - name: Debug project_home
   ansible.builtin.debug:
-    var: env_item.project_home
-  loop: "{{ virtualenv_settings }}"
+    msg: "project_home for {{ item.key }} is {{ item.value.project_home }}"
+  loop: "{{ virtualenv_settings | dict2items }}"
   loop_control:
-    loop_var: env_item
+    loop_var: item
+
 
 
 - name: Create virtual environments
   ansible.builtin.shell: >
-    "mkvirtualenv -a '{{ env_item.project_home }}' {{ env_item.env_name }}"
+    "mkvirtualenv -a '{{ project_details.project_home }}' {{ project_details.env_name }}"
   environment:
-    WORKON_HOME: "{{ env_item.workon_home }}"
-    VIRTUALENVWRAPPER_PYTHON: "{{ env_item.virtualenvwrapper_python | default(default_python_path) }}"
-    VIRTUALENVWRAPPER_SCRIPT: "{{ env_item.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
-    PROJECT_HOME: "{{ env_item.project_home | default(default_project_home) }}"
+    WORKON_HOME: "{{ project_details.workon_home }}"
+    VIRTUALENVWRAPPER_PYTHON: "{{ project_details.virtualenvwrapper_python | default(default_python_path) }}"
+    VIRTUALENVWRAPPER_SCRIPT: "{{ project_details.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
+    PROJECT_HOME: "{{ project_details.project_home | default(default_project_home) }}"
   args:
     chdir: "{{ ansible_env.HOME }}"
-  when: virtualenv_action == 'create' and env_item.env_name is defined and env_item.project_home is defined
+  when: 
+    - virtualenv_action == 'create' 
+    - project_details.env_name is defined 
+    - project_details.project_home is defined
   ignore_errors: true
   become: true
   become_user: "{{ virtualenvwrapper_user }}"
   loop: "{{ virtualenv_settings }}"
   loop_control:
-    loop_var: env_item
+    loop_var: project_details
+    extended: yes
+  vars:
+    project_details: "{{ env_item.values() | first }}"
+
