@@ -100,8 +100,8 @@
  #   chdir: "{{ ansible_env.HOME }}"
   when: 
     - virtualenv_action == 'create' 
-    - project_value.env_name is defined 
-    - project_value.project_home is defined
+    - project_details.env_name is defined 
+    - project_details.project_home is defined
   ignore_errors: true
   become: true
   become_user: "{{ virtualenvwrapper_user }}"
