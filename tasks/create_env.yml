@@ -13,27 +13,22 @@
   ansible.builtin.debug:
     var: virtualenv_action
 
-# Debug env_name from the nested dictionary in the list
+# Debug env_name from the nested dictionary
 - name: Debug env_name
   ansible.builtin.debug:
-    msg: "env_name for {{ project_name }} is {{ project_details.env_name }}"
-  loop: "{{ virtualenv_settings }}"
+    msg: "env_name for {{ item.key }} is {{ item.value.env_name }}"
+  loop: "{{ virtualenv_settings | map('dict2items') | list }}"
   loop_control:
-    loop_var: project_details
-    extended: yes
-  vars:
-    project_name: "{{ project_details.keys() | first }}"
+    loop_var: item
 
-# Debug project_home from the nested dictionary in the list
+# Debug project_home from the nested dictionary
 - name: Debug project_home
   ansible.builtin.debug:
-    msg: "project_home for {{ project_name }} is {{ project_details.project_home }}"
-  loop: "{{ virtualenv_settings }}"
+    msg: "project_home for {{ item.key }} is {{ item.value.project_home }}"
+  loop: "{{ virtualenv_settings | map('dict2items') | list }}"
   loop_control:
-    loop_var: project_details
-    extended: yes
-  vars:
-    project_name: "{{ project_details.keys() | first }}"
+    loop_var: item
+
 
 
 
