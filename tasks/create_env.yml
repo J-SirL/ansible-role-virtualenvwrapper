@@ -12,6 +12,21 @@
   ansible.builtin.debug:
     var: virtualenv_action
 
+- name: Debug env_name
+  ansible.builtin.debug:
+    var: env_item.env_name
+  loop: "{{ virtualenv_settings }}"
+  loop_control:
+    loop_var: env_item
+
+- name: Debug project_home
+  ansible.builtin.debug:
+    var: env_item.project_home
+  loop: "{{ virtualenv_settings }}"
+  loop_control:
+    loop_var: env_item
+
+
 - name: Create virtual environments
   ansible.builtin.shell: >
     "mkvirtualenv -a '{{ env_item.project_home }}' {{ env_item.env_name }}"
