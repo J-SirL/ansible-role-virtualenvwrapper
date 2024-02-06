@@ -19,5 +19,9 @@
   loop: "{{ virtualenv_tasks }}"
   loop_control:
     loop_var: man_item
-  when: man_item.condition
+  when: virtualenv_action == 'create' and man_item.task_file == 'create_env.yml'
+    or virtualenv_action == 'remove' and man_item.task_file == 'remove_env.yml'
+    or virtualenv_action == 'list' and man_item.task_file == 'list_envs.yml'
+    or virtualenv_action == 'add' and man_item.task_file == 'add2virtualenv.yml'
+    or virtualenv_action == 'list' and man_item.task_file == 'allvirtualenv.yml'
 
