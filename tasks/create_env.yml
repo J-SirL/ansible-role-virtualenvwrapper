@@ -80,6 +80,9 @@
     project_key: "{{ project_item.keys() | first }}"
     project_value: "{{ project_item[project_key] }}"
 
+- name: Print ansible_env.HOME
+  debug:
+    var: ansible_env.HOME
 
 
 - fail:
