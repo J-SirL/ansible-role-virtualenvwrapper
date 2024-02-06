@@ -34,6 +34,26 @@
     project_key: "{{ project_item.keys() | first }}"
     project_value: "{{ project_item[project_key] }}"
 
+- name: debug the when statement
+  ansible.builtin.debug:
+    msg: | 
+     "this is our values: 
+     virtualenv_action == {{ virtualenv_action }}"
+     project_value.env_name == "{{ project_value.env_name }}"
+     project_value.project_home == "{{ project_value.project_home }}" 
+  when: 
+    - virtualenv_action == 'create' 
+#    - project_value.env_name is defined 
+#    - project_value.project_home is defined
+  ignore_errors: true
+  become: true
+  become_user: "{{ virtualenvwrapper_user }}"
+  loop: "{{ virtualenv_settings }}"
+  loop_control:
+    loop_var: project_item
+  vars:
+    project_key: "{{ project_item.keys() | first }}"
+    project_value: "{{ project_item[project_key] }}"
 
 - name: Echo values | Create virtual environments
   ansible.builtin.command:
