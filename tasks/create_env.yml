@@ -64,8 +64,8 @@
     VIRTUALENVWRAPPER_PYTHON: "{{ project_value.virtualenvwrapper_python | default(default_python_path) }}"
     VIRTUALENVWRAPPER_SCRIPT: "{{ project_value.virtualenvwrapper_script | default(default_virtualenvwrapper_path) }}"
     PROJECT_HOME: "{{ project_value.project_home | default(default_project_home) }}"
-  args:
-    chdir: "{{ ansible_env.HOME }}"
+  #args:
+  #  chdir: "{{ ansible_env.HOME }}"
   when: 
     - virtualenv_action == 'create' 
     - project_value.env_name is defined 
