@@ -89,8 +89,8 @@
 # End our debugs
 
 - name: Create virtual environments
-  ansible.builtin.shell: >
-    "mkvirtualenv -a '{{ project_details.project_home }}' {{ project_details.env_name }}"
+  ansible.builtin.shell: 
+    cmd: "mkvirtualenv -a '{{ project_details.project_home }}' {{ project_details.env_name }}"
   environment:
     WORKON_HOME: "{{ project_details.workon_home }}"
     VIRTUALENVWRAPPER_PYTHON: "{{ project_details.virtualenvwrapper_python | default(default_python_path) }}"
